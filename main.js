@@ -27,11 +27,11 @@ Alexandre Le Mansel. Un vers de Sophocle tua votre héroïne. Une phrase de Lamp
 
         stdin.setRawMode(true);
         stdin.resume();
-        stdin.setEncoding( 'utf8' );
+        stdin.setEncoding('utf8');
 
         var that = this;
-        stdin.on( 'data', function( key ){
-            if ( key === '\u0003' ) {
+        stdin.on('data', function(key) {
+            if (key === '\u0003') {
                 process.exit();
             }
             that.onType(key);
@@ -78,7 +78,6 @@ Alexandre Le Mansel. Un vers de Sophocle tua votre héroïne. Une phrase de Lamp
         }
 
         out += '\n\nActual char : '+this.cursor;
-        out += '\n\nRed cursor : '+this.badCpt;
         out += '\n';
 
         process.stdout.write(out);
@@ -86,5 +85,4 @@ Alexandre Le Mansel. Un vers de Sophocle tua votre héroïne. Une phrase de Lamp
 }
 
 var d = new Dactylo();
-//d.displayText();
 d.startListen();
