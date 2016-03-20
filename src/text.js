@@ -3,9 +3,16 @@
 export class Text {
 
     static buildRadom() {
-        var text = "Vous êtes sorti sain et sauf des basses calomnies, vous avez conquis les coeurs. Vous apparaissez rayonnant dans l'apothéose de cette fête patriotique que l'alliance russe a été pour la France, et vous vous préparez à présider au solennel triomphe de notre Exposition Universelle, qui couronnera notre grand siècle de travail, de vérité et de liberté. Mais quelle tache de boue sur votre nom - j'allais dire sur votre règne - que cette abominable affaire Dreyfus ! Un conseil de guerre vient, par ordre, d'oser acquitter un";
+        var texts = JSON.parse(require('fs').readFileSync('./texts.json', 'utf8'));
+        var text = this.getRandomText(texts);
         var t = new Text(text);
         return t;
+    }
+
+    static getRandomText(texts) {
+        var nTexts = texts.length;
+        var i = Math.floor(Math.random() * nTexts);
+        return texts[i];
     }
 
     constructor(text) {
