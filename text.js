@@ -9,12 +9,18 @@ export class Text {
     }
 
     constructor(text) {
+        this.text = text;
+        this.addBackspace(80);
+    }
+
+    addBackspace(maxRows) {
+        var text = this.text;
         this.text = "";
         var needCut = false;
         for (var i = 0; i < text.length; i++) {
             var c = text[i];
             this.text += c;
-            if (i % 80 == 0 && i > 70) {
+            if (i % maxRows == 0 && i > maxRows-10) {
                 needCut = true;
             }
             if (needCut && c == ' ') {

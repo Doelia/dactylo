@@ -1,6 +1,7 @@
 var colors = require('colors');
 var util = require('util');
 var exec = require('child_process').exec;
+
 import {Text} from './text';
 import {Timer} from './timer';
 import {Input} from './input';

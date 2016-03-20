@@ -1,6 +1,5 @@
 export class Input {
 
-
     constructor() {
         this.callback = function() {};
 
