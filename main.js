@@ -40,7 +40,7 @@ Alexandre Le Mansel. Un vers de Sophocle tua votre héroïne. Une phrase de Lamp
 
     onType(character) {
         var c = this.text.charAt(this.cursor);
-        if (character == 'z') {
+        if (character.charCodeAt(0) === 127) {
             this.badCpt--;
             this.displayText();
             return;
@@ -67,11 +67,11 @@ Alexandre Le Mansel. Un vers de Sophocle tua votre héroïne. Une phrase de Lamp
         for (var i = 0; i < this.text.length; i++) {
             var c = this.text[i];
             if (i == this.cursor && i == this.badCpt) {
-                out += c.green;
+                out += c.bgGreen;
             } else if (i == this.badCpt) {
-                out += c.red;
+                out += c.bgRed;
             } else if (i < this.cursor) {
-                out += c.yellow;
+                out += c.green;
             } else {
                 out += c;
             }
