@@ -17,8 +17,13 @@ Alexandre Le Mansel. Un vers de Sophocle tua votre héroïne. Une phrase de Lamp
 
         this.cursor = 0;
         this.badCpt = 0;
+        this.startTime = null;
 
         this.displayText();
+    }
+
+    startTimer() {
+        this.startTime = new Date();
     }
 
     startListen() {
@@ -31,7 +36,7 @@ Alexandre Le Mansel. Un vers de Sophocle tua votre héroïne. Une phrase de Lamp
 
         var that = this;
         stdin.on('data', function(key) {
-            if (key === '\u0003') {
+            if (key === '\u0003') { // Ctrl + C
                 process.exit();
             }
             that.onType(key);
@@ -39,8 +44,12 @@ Alexandre Le Mansel. Un vers de Sophocle tua votre héroïne. Une phrase de Lamp
     }
 
     onType(character) {
+        if (this.startTime === null && this.cursor > 0) {
+            this.startTimer();
+        }
+
         var c = this.text.charAt(this.cursor);
-        if (character.charCodeAt(0) === 127) {
+        if (character.charCodeAt(0) === 127) { // Backspace
             this.badCpt--;
             this.displayText();
             return;
@@ -59,11 +68,27 @@ Alexandre Le Mansel. Un vers de Sophocle tua votre héroïne. Une phrase de Lamp
         this.displayText();
     }
 
+    getWordsTyped() {
+        return this.cursor / 5;
+    }
+
+    secondPassed() {
+        if (this.startTime == null) {
+            return -1;
+        }
+        var now = new Date();
+        var offset = now.getTime() - this.startTime.getTime();
+        return offset / 1000;
+    }
+
+    getWordPerMinuts() {
+        return this.getWordsTyped() * 60 / this.secondPassed();
+    }
+
     displayText() {
         'use strict';
         var out = "";
 
-        process.stdout.write('\x1B[2J');
         for (var i = 0; i < this.text.length; i++) {
             var c = this.text[i];
             if (i == this.cursor && i == this.badCpt) {
@@ -78,8 +103,11 @@ Alexandre Le Mansel. Un vers de Sophocle tua votre héroïne. Une phrase de Lamp
         }
 
         out += '\n\nActual char : '+this.cursor;
-        out += '\n';
+        out += '\n'+this.getWordPerMinuts()+" W/mins";
 
+        out += '\nSeconds passed: '+this.secondPassed();
+
+        process.stdout.write('\x1B[2J'); // Clear console
         process.stdout.write(out);
     }
 }
