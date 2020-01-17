@@ -4,9 +4,9 @@ Test de dactyloghaphie en console, développé en NodeJS/Babel pour tester ECMA2
 
 ![](http://i.imgur.com/VubYdNC.png)
 
-## Utilisation
+## Usage
 
 ```
 npm install
-babel-node main.js
+node main.js
 ```
